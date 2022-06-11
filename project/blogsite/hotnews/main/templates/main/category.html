@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block header %}{% endblock header %}
+{% block body %}
+{% for i in categories %}
+<a href="{% url 'category' i.pk %}" class="button">{{ i.title }}</a>
+{% endfor %}
+<hr>
+<hr>
+{% for i in forms %}
+<div>
+<p>{{ i.title }}</p>
+<img src="{{ i.image.url }}" alt=""
+<p>{{ i.content|linebreaks|truncatewords:20 }}</p>
+<p>{{ i.published }}</p>
+<a href="/oneform/{{ i.pk }}" class="button">read more...</a>
+<hr>
+</div>
+{% endfor %}
+{% endblock body %}

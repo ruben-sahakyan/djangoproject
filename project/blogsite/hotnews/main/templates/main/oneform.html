@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block header %}{% endblock header %}
+{% block body %}
+<hr>
+<hr>
+<div>
+<p>{{ form.title }}</p>
+<img src="{{ form.image.url }}" alt=""
+<p>{{ form.content }}</p>
+<p>{{ form.published }}</p>
+<hr>
+</div>
+{% endblock body %}
