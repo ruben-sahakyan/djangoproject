@@ -1,3 +1,4 @@
+from re import M
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import NewForm, UserRegisterForm, UserLoginForm
@@ -5,32 +6,34 @@ from django.contrib import messages
 from django.views.generic import ListView, CreateView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth import login, logout
+from .utlis import *
 
 
-categories = Category.objects.all()
 
 
-class Homepage(ListView):
+
+class Homepage(MyMixin, ListView):
     model = Form
     template_name = 'main/index.html'
     context_object_name = 'forms'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = categories
-        return context
+        get_context = self.get_context()
+        return dict(list(context.items()) + list(get_context.items()))
 
 
-class OneCategory(ListView):
+
+
+class OneCategory(MyMixin, ListView):
     model = Form
     template_name = 'main/category.html'
     context_object_name = 'forms'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = categories
-        return context
+        get_context = self.get_context()
+        return dict(list(context.items()) + list(get_context.items()))
 
     def get_queryset(self):
         return Form.objects.filter(category_id=self.kwargs['category_id'])
@@ -72,15 +75,15 @@ def log_out(request):
     return redirect('login')
 
 
-class Oneform(DetailView):
+class Oneform(MyMixin, DetailView):
     model = Form
     context_object_name = 'form'
     template_name = 'main/oneform.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = categories
-        return context
+        get_context = self.get_context()
+        return dict(list(context.items()) + list(get_context.items()))
 
 
 
