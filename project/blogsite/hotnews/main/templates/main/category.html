@@ -2,19 +2,41 @@
 
 {% block header %}{% endblock header %}
 {% block body %}
-{% for i in categories %}
-<a href="{% url 'category' i.pk %}" class="button">{{ i.title }}</a>
-{% endfor %}
-<hr>
-<hr>
-{% for i in forms %}
-<div>
-<p>{{ i.title }}</p>
-<img src="{{ i.image.url }}" alt=""
-<p>{{ i.content|linebreaks|truncatewords:20 }}</p>
-<p>{{ i.published }}</p>
-<a href="/oneform/{{ i.pk }}" class="button">read more...</a>
-<hr>
-</div>
-{% endfor %}
+<div class="container mt-3">
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action active" aria-current="true">
+            Categories
+          </a>
+          {% for i in categories %}
+          <a href="{% url 'category' i.pk %}" class="list-group-item list-group-item-action">{{ i.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="col-md-8">
+      {% for i in forms %}
+      <div class="card mb-3">
+        <div class="card-header">
+          {{ i.title }}
+        </div>
+        <div class="card-body">
+          <div class="media">
+            <img src="{{ i.image.url }}" alt="" width="250">
+            <div class="media-body">
+              <p class="card-text">{{ i.content|linebreaks|truncatewords:30 }}</p>
+              <a href="/oneform/{{ i.pk }}" class="btn btn-primary">Read more...</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          {{ i.published }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    </div>
+  </div>
 {% endblock body %}

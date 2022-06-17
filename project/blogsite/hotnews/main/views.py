@@ -93,6 +93,8 @@ class AddNew(CreateView):
     template_name = 'main/addnew.html'
     success_url = reverse_lazy('home')
 
+    
+
 
 
 

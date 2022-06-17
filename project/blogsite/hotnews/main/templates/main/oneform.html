@@ -2,13 +2,18 @@
 
 {% block header %}{% endblock header %}
 {% block body %}
-<hr>
-<hr>
-<div>
-<p>{{ form.title }}</p>
-<img src="{{ form.image.url }}" alt=""
-<p>{{ form.content }}</p>
-<p>{{ form.published }}</p>
-<hr>
-</div>
+<div class="card text-center">
+    <div class="card-header">
+        Category {{ form.category }} : {{ form.title }}
+    </div>
+    <div class="card-body">
+      <div class="media">
+        <img src="{{ form.image.url }}" alt="" width="350">
+        <div class="media-body">
+          <p class="card-text">{{ form.content}}</p>
+    </div>
+    <div class="card-footer text-muted">
+      {{ form.published }}
+    </div>
+  </div>
 {% endblock body %}
